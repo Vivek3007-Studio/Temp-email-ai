@@ -3,25 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TempMail Pro - Free Disposable Email Service</title>
-    <meta name="description" content="Generate temporary disposable emails instantly. Protect your privacy with our free service. No registration required!">
-    <meta name="keywords" content="temporary email, disposable email, fake email, email verification, anonymous email">
-    <meta property="og:title" content="TempMail Pro - Free Disposable Temporary Email">
-    <meta property="og:description" content="Generate instant temporary emails to protect your privacy. No registration required.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tempmailpro.example.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>TempMail Pro - Disposable Email Service</title>
+    <meta name="description" content="Free temporary email service with real inbox functionality. Protect your privacy with disposable emails.">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2572999402945817" crossorigin="anonymous"></script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "TempMail Pro",
-        "description": "Free temporary disposable email service",
-        "applicationCategory": "Utilities",
-        "operatingSystem": "Web"
-    }
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #4f46e5;
@@ -179,7 +164,7 @@
             font-size: 1.5rem;
         }
 
-        .timer {
+        .session-note {
             background-color: #fffbeb;
             color: #d97706;
             padding: 5px 15px;
@@ -190,7 +175,7 @@
             gap: 8px;
         }
 
-        body.dark-mode .timer {
+        body.dark-mode .session-note {
             background-color: #451a03;
             color: #f59e0b;
         }
@@ -505,27 +490,6 @@
             margin-bottom: 10px;
         }
 
-        .ad-placeholder {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: var(--primary);
-            gap: 15px;
-        }
-
-        body.dark-mode .ad-placeholder {
-            background: linear-gradient(135deg, #312e81, #1e1b4b);
-        }
-
-        .ad-placeholder i {
-            font-size: 3rem;
-        }
-
         /* Theme Toggle */
         .theme-toggle {
             width: 50px;
@@ -608,6 +572,32 @@
             font-size: 0.9rem;
         }
 
+        /* Header Ad */
+        .header-ad {
+            background: #f1f5f9;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        body.dark-mode .header-ad {
+            background: #0f172a;
+        }
+
+        .header-ad-container {
+            max-width: 728px;
+            height: 90px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+            border-radius: 8px;
+        }
+
+        body.dark-mode .header-ad-container {
+            background: linear-gradient(135deg, #312e81, #1e1b4b);
+        }
+
         /* Toast */
         .toast {
             position: fixed;
@@ -645,30 +635,80 @@
             border-left: 4px solid var(--danger);
         }
 
-        /* Header Ad */
-        .header-ad {
-            background: #f1f5f9;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        body.dark-mode .header-ad {
-            background: #0f172a;
-        }
-
-        .header-ad-container {
-            max-width: 728px;
-            height: 90px;
-            margin: 0 auto;
+        /* Email Modal */
+        .email-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-            border-radius: 8px;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
         }
 
-        body.dark-mode .header-ad-container {
-            background: linear-gradient(135deg, #312e81, #1e1b4b);
+        .email-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .email-modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(50px);
+            transition: transform 0.3s;
+        }
+
+        body.dark-mode .email-modal-content {
+            background: #1e293b;
+        }
+
+        .email-modal.show .email-modal-content {
+            transform: translateY(0);
+        }
+
+        .email-modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body.dark-mode .email-modal-header {
+            border-bottom-color: #334155;
+        }
+
+        .email-modal-body {
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: var(--primary);
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Responsive */
@@ -690,6 +730,8 @@
             
             .nav-links {
                 gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             .email-display {
@@ -761,8 +803,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Free Temporary Email Service</h1>
-            <p>Protect your privacy with our disposable email addresses. No registration required. Perfect for signups, verifications, and avoiding spam.</p>
+            <h1>Real Temporary Email Service</h1>
+            <p>Generate disposable email addresses and receive real emails instantly. Protect your privacy with our secure service.</p>
         </div>
     </section>
 
@@ -771,14 +813,14 @@
         <section class="email-generator">
             <div class="email-header">
                 <h2>Your Temporary Email Address</h2>
-                <div class="timer" id="emailTimer">
-                    <i class="fas fa-clock"></i>
-                    <span>Expires in: 10:00</span>
+                <div class="session-note">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Session will reset on refresh</span>
                 </div>
             </div>
             
             <div class="email-display">
-                <div class="email-address" id="emailAddress">loading...</div>
+                <div class="email-address" id="emailAddress">generating...</div>
                 <button class="btn btn-primary" id="copyEmailBtn">
                     <i class="fas fa-copy"></i> Copy Email
                 </button>
@@ -802,14 +844,18 @@
             <!-- Left Column - Inbox -->
             <div class="inbox">
                 <div class="inbox-header">
-                    <h2>Inbox</h2>
+                    <h2>Inbox <span id="unreadCount" class="unread-count">(0)</span></h2>
                     <button class="refresh-btn" id="refreshInboxBtn">
                         <i class="fas fa-sync-alt"></i> Refresh
                     </button>
                 </div>
                 
                 <div class="email-list" id="emailList">
-                    <!-- Emails will be loaded here dynamically -->
+                    <div class="empty-inbox" style="padding: 40px 20px; text-align: center; color: var(--gray);">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <h3>Your inbox is empty</h3>
+                        <p>Messages sent to your temporary email will appear here</p>
+                    </div>
                 </div>
                 
                 <!-- Ad between emails -->
@@ -847,16 +893,16 @@
                     <div class="card-body">
                         <div class="faq">
                             <div class="faq-item">
-                                <div class="faq-question">What is a temporary email?</div>
-                                <div class="faq-answer">A temporary email is a disposable email address that you can use instead of your real email to protect your privacy and avoid spam.</div>
+                                <div class="faq-question">How does it work?</div>
+                                <div class="faq-answer">We generate a temporary email address that forwards real emails to your inbox. All emails are deleted after the session.</div>
                             </div>
                             <div class="faq-item">
-                                <div class="faq-question">How long does the email last?</div>
-                                <div class="faq-answer">Your temporary email will expire after 10 minutes of inactivity. You can extend the time by refreshing the page or interacting with the inbox.</div>
+                                <div class="faq-question">Are the emails real?</div>
+                                <div class="faq-answer">Yes! We connect to a real email service that receives actual emails sent to your temporary address.</div>
                             </div>
                             <div class="faq-item">
                                 <div class="faq-question">Is this service free?</div>
-                                <div class="faq-answer">Yes, our temporary email service is completely free to use with no registration required.</div>
+                                <div class="faq-answer">Absolutely! Our temporary email service is completely free to use with no registration required.</div>
                             </div>
                         </div>
                     </div>
@@ -868,10 +914,10 @@
                     <div class="card-body">
                         <div class="how-it-works">
                             <ol>
-                                <li>Generate a temporary email address with one click</li>
-                                <li>Use it to sign up for websites, apps, or services</li>
-                                <li>View incoming messages in your private inbox</li>
-                                <li>Your email expires automatically after 10 minutes</li>
+                                <li>Generate a temporary email address</li>
+                                <li>Use it for signups, verifications, etc.</li>
+                                <li>View real emails in your inbox</li>
+                                <li>Session resets when you refresh the page</li>
                             </ol>
                         </div>
                     </div>
@@ -937,6 +983,49 @@
         <span id="toastMessage">Email copied to clipboard!</span>
     </div>
 
+    <!-- Email Modal -->
+    <div class="email-modal" id="emailModal">
+        <div class="email-modal-content">
+            <div class="email-modal-header">
+                <h2 id="emailSubject">Email Subject</h2>
+                <button id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="email-modal-body">
+                <div class="email-meta">
+                    <div><strong>From:</strong> <span id="emailFrom">sender@example.com</span></div>
+                    <div><strong>Date:</strong> <span id="emailDate">Oct 15, 2023</span></div>
+                </div>
+                <div id="emailBody" style="margin-top: 20px; line-height: 1.6;">
+                    <!-- Email content will be inserted here -->
+                </div>
+                
+                <div style="margin: 30px 0; text-align: center;">
+                    <!-- Ad in email view -->
+                    <ins class="adsbygoogle"
+                         style="display:block; margin: 0 auto; max-width: 728px;"
+                         data-ad-client="ca-pub-2572999402945817"
+                         data-ad-slot="3853355144"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+                
+                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 30px;">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-reply"></i> Reply
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-share"></i> Forward
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // DOM Elements
         const emailAddressEl = document.getElementById('emailAddress');
@@ -947,32 +1036,33 @@
         const downloadBtn = document.getElementById('downloadBtn');
         const emailListEl = document.getElementById('emailList');
         const themeToggle = document.getElementById('themeToggle');
-        const emailTimerEl = document.getElementById('emailTimer');
         const toastEl = document.getElementById('toast');
         const toastMessageEl = document.getElementById('toastMessage');
+        const emailModal = document.getElementById('emailModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const emailSubject = document.getElementById('emailSubject');
+        const emailFrom = document.getElementById('emailFrom');
+        const emailDate = document.getElementById('emailDate');
+        const emailBody = document.getElementById('emailBody');
+        const unreadCount = document.getElementById('unreadCount');
 
         // State
         let currentEmail = '';
         let emails = [];
-        let timerInterval;
-        let timeLeft = 600; // 10 minutes in seconds
         let isDarkMode = localStorage.getItem('darkMode') === 'true';
+        let inboxRefreshInterval;
+        let currentAccountId = '';
+        let currentToken = '';
 
         // Initialize
-        function init() {
+        async function init() {
             // Apply theme
             if (isDarkMode) {
                 document.body.classList.add('dark-mode');
             }
             
             // Generate initial email
-            generateEmail();
-            
-            // Start timer
-            startTimer();
-            
-            // Load mock emails
-            loadEmails();
+            await generateEmail();
             
             // Setup event listeners
             setupEventListeners();
@@ -981,95 +1071,147 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
         }
 
-        // Generate random email
-        function generateEmail() {
-            const randomString = Math.random().toString(36).substring(2, 10);
-            const domains = ['tempmail.pro', 'disposable.me', 'mailinator.net', 'tempinbox.com'];
-            const randomDomain = domains[Math.floor(Math.random() * domains.length)];
-            currentEmail = `${randomString}@${randomDomain}`;
-            emailAddressEl.textContent = currentEmail;
+        // Generate random email using Mail.tm API
+        async function generateEmail() {
+            try {
+                // Step 1: Get available domain
+                const domainsResponse = await fetch('https://api.mail.tm/domains');
+                const domainsData = await domainsResponse.json();
+                const domain = domainsData['hydra:member'][0].domain;
+                
+                // Step 2: Create random username and password
+                const username = Math.random().toString(36).substring(2, 10);
+                const password = Math.random().toString(36).substring(2, 16);
+                currentEmail = `${username}@${domain}`;
+                
+                // Update UI
+                emailAddressEl.textContent = currentEmail;
+                
+                // Step 3: Create account
+                const accountResponse = await fetch('https://api.mail.tm/accounts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        address: currentEmail,
+                        password: password
+                    })
+                });
+                
+                const accountData = await accountResponse.json();
+                currentAccountId = accountData.id;
+                
+                // Step 4: Get token
+                const tokenResponse = await fetch('https://api.mail.tm/token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        address: currentEmail,
+                        password: password
+                    })
+                });
+                
+                const tokenData = await tokenResponse.json();
+                currentToken = tokenData.token;
+                
+                // Start fetching emails
+                fetchEmails();
+                
+                // Start auto-refresh
+                clearInterval(inboxRefreshInterval);
+                inboxRefreshInterval = setInterval(fetchEmails, 10000); // every 10 seconds
+                
+                showToast('Temporary email created!');
+                
+            } catch (error) {
+                console.error('Error creating email:', error);
+                emailAddressEl.textContent = 'Error creating email';
+                showToast('Failed to create temporary email', 'error');
+            }
         }
 
-        // Start expiration timer
-        function startTimer() {
-            clearInterval(timerInterval);
-            timeLeft = 600; // Reset to 10 minutes
+        // Fetch emails from Mail.tm API
+        async function fetchEmails() {
+            if (!currentToken) return;
             
-            timerInterval = setInterval(() => {
-                timeLeft--;
+            try {
+                const response = await fetch('https://api.mail.tm/messages', {
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`
+                    }
+                });
                 
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    showToast('Your temporary email has expired!', 'error');
-                    generateEmail();
-                    startTimer();
+                const data = await response.json();
+                const messages = data['hydra:member'];
+                
+                if (!messages || messages.length === 0) {
                     return;
                 }
                 
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                emailTimerEl.innerHTML = `<i class="fas fa-clock"></i> Expires in: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-            }, 1000);
-        }
-
-        // Load mock emails
-        function loadEmails() {
-            // Mock email data
-            emails = [
-                {
-                    id: 1,
-                    from: "Twitter Verification",
-                    senderInitial: "T",
-                    subject: "Verify your Twitter account",
-                    preview: "Click the link below to verify your Twitter account...",
-                    time: "2 mins ago",
-                    body: "Thank you for signing up for Twitter! Please verify your email address by clicking the link below:<br><br><a href='#'>Verify Email</a><br><br>If you didn't create a Twitter account, you can ignore this email.",
-                    read: false
-                },
-                {
-                    id: 2,
-                    from: "Amazon",
-                    senderInitial: "A",
-                    subject: "Your Amazon Order Confirmation",
-                    preview: "Thank you for your order! Your order details are...",
-                    time: "15 mins ago",
-                    body: "Thank you for your order!<br><br>Order #: 123-4567890-1234567<br>Order Date: October 15, 2023<br>Estimated Delivery: October 18-20, 2023<br><br>View your order: <a href='#'>Order Details</a>",
-                    read: true
-                },
-                {
-                    id: 3,
-                    from: "GitHub",
-                    senderInitial: "G",
-                    subject: "[GitHub] Please verify your device",
-                    preview: "A new sign-in from Chrome on Windows",
-                    time: "1 hour ago",
-                    body: "We noticed a new sign-in to your GitHub account on a device we don't recognize:<br><br>Location: New York, NY, USA<br>Browser: Chrome on Windows<br>Time: October 15, 2023 at 3:45 PM (UTC)<br><br>If this was you, you can safely ignore this email. If you don't recognize this activity, please secure your account.",
-                    read: true
-                },
-                {
-                    id: 4,
-                    from: "Netflix",
-                    senderInitial: "N",
-                    subject: "Your Netflix account is on hold",
-                    preview: "We're having trouble charging your payment method",
-                    time: "3 hours ago",
-                    body: "Dear Netflix Member,<br><br>We're having trouble charging your payment method for your Netflix membership. Please update your payment details to avoid interruption in service.<br><br>To update your payment information, visit your Account page: <a href='#'>Update Payment</a><br><br>If you have any questions, contact customer service.",
-                    read: false
+                // Process new messages
+                for (const msg of messages) {
+                    // Check if we already have this email
+                    const existing = emails.find(e => e.id === msg.id);
+                    if (!existing) {
+                        // Fetch full message details
+                        const msgResponse = await fetch(`https://api.mail.tm/messages/${msg.id}`, {
+                            headers: {
+                                'Authorization': `Bearer ${currentToken}`
+                            }
+                        });
+                        
+                        const fullMsg = await msgResponse.json();
+                        
+                        emails.unshift({
+                            id: fullMsg.id,
+                            from: fullMsg.from ? fullMsg.from.name || fullMsg.from.address : 'Unknown',
+                            subject: fullMsg.subject || 'No subject',
+                            preview: (fullMsg.subject || 'No subject').substring(0, 50) + ((fullMsg.subject || '').length > 50 ? '...' : ''),
+                            time: new Date(fullMsg.createdAt).toLocaleTimeString(),
+                            date: fullMsg.createdAt,
+                            body: fullMsg.text || fullMsg.html || 'No content available',
+                            read: false
+                        });
+                    }
                 }
-            ];
-            
-            renderEmails();
+                
+                // Render the updated inbox
+                renderEmails();
+                
+            } catch (error) {
+                console.error('Error fetching emails:', error);
+            }
         }
 
         // Render emails in inbox
         function renderEmails() {
+            if (emails.length === 0) {
+                emailListEl.innerHTML = `
+                    <div class="empty-inbox" style="padding: 40px 20px; text-align: center; color: var(--gray);">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <h3>Your inbox is empty</h3>
+                        <p>Messages sent to your temporary email will appear here</p>
+                    </div>
+                `;
+                updateUnreadCount();
+                return;
+            }
+            
             emailListEl.innerHTML = '';
             
             emails.forEach(email => {
+                const senderInitial = email.from ? email.from.charAt(0).toUpperCase() : '?';
+                
                 const emailItem = document.createElement('div');
                 emailItem.className = `email-item ${email.read ? '' : 'unread'}`;
+                emailItem.dataset.id = email.id;
                 emailItem.innerHTML = `
-                    <div class="email-avatar">${email.senderInitial}</div>
+                    <div class="email-avatar">${senderInitial}</div>
                     <div class="email-content">
                         <div class="email-meta">
                             <div class="email-sender">${email.from}</div>
@@ -1085,6 +1227,7 @@
                     if (!email.read) {
                         email.read = true;
                         emailItem.classList.remove('unread');
+                        updateUnreadCount();
                     }
                     
                     // Show email content
@@ -1094,97 +1237,24 @@
                 emailListEl.appendChild(emailItem);
             });
             
-            // Add empty state if no emails
-            if (emails.length === 0) {
-                emailListEl.innerHTML = `
-                    <div class="empty-inbox" style="padding: 40px 20px; text-align: center; color: var(--gray);">
-                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                        <h3>Your inbox is empty</h3>
-                        <p>Messages sent to your temporary email will appear here</p>
-                    </div>
-                `;
-            }
+            updateUnreadCount();
+        }
+
+        // Update unread count display
+        function updateUnreadCount() {
+            const unread = emails.filter(email => !email.read).length;
+            unreadCount.textContent = `(${unread})`;
+            unreadCount.style.color = unread > 0 ? 'var(--primary)' : 'inherit';
         }
 
         // Show email content
         function showEmailContent(email) {
-            // Create modal
-            const modal = document.createElement('div');
-            modal.style.position = 'fixed';
-            modal.style.top = '0';
-            modal.style.left = '0';
-            modal.style.width = '100%';
-            modal.style.height = '100%';
-            modal.style.backgroundColor = 'rgba(0,0,0,0.7)';
-            modal.style.display = 'flex';
-            modal.style.justifyContent = 'center';
-            modal.style.alignItems = 'center';
-            modal.style.zIndex = '1000';
+            emailSubject.textContent = email.subject;
+            emailFrom.textContent = email.from;
+            emailDate.textContent = new Date(email.date).toLocaleString();
+            emailBody.innerHTML = `<pre style="white-space: pre-wrap;">${email.body}</pre>`;
             
-            // Modal content
-            modal.innerHTML = `
-                <div style="background: white; width: 90%; max-width: 800px; border-radius: 15px; overflow: hidden; max-height: 90vh; display: flex; flex-direction: column;">
-                    <div style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                        <h2 style="font-size: 1.5rem;">${email.subject}</h2>
-                        <button id="closeModalBtn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
-                    </div>
-                    <div style="padding: 20px; overflow-y: auto;">
-                        <div style="margin-bottom: 30px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                                <div>
-                                    <strong>From:</strong> ${email.from}
-                                </div>
-                                <div>
-                                    <strong>Date:</strong> ${new Date().toLocaleString()}
-                                </div>
-                            </div>
-                            <div style="background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid var(--border);">
-                                ${email.body}
-                            </div>
-                        </div>
-                        
-                        <div style="text-align: center; margin: 20px 0;">
-                            <!-- Ad in email view -->
-                            <ins class="adsbygoogle"
-                                 style="display:block; margin: 0 auto; max-width: 728px;"
-                                 data-ad-client="ca-pub-2572999402945817"
-                                 data-ad-slot="3853355144"
-                                 data-ad-format="auto"
-                                 data-full-width-responsive="true"></ins>
-                        </div>
-                        
-                        <div style="display: flex; justify-content: center; gap: 15px; margin-top: 30px;">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-reply"></i> Reply
-                            </button>
-                            <button class="btn btn-secondary">
-                                <i class="fas fa-share"></i> Forward
-                            </button>
-                            <button class="btn btn-danger">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            // Initialize AdSense for the new ad
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            
-            // Close modal button
-            const closeModalBtn = modal.querySelector('#closeModalBtn');
-            closeModalBtn.addEventListener('click', () => {
-                document.body.removeChild(modal);
-            });
-            
-            // Close modal when clicking outside content
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    document.body.removeChild(modal);
-                }
-            });
+            emailModal.classList.add('show');
         }
 
         // Show toast notification
@@ -1213,31 +1283,35 @@
             });
             
             // Refresh email button
-            refreshEmailBtn.addEventListener('click', () => {
-                generateEmail();
+            refreshEmailBtn.addEventListener('click', async () => {
+                await generateEmail();
                 showToast('New email generated!');
             });
             
             // Delete email button
             deleteEmailBtn.addEventListener('click', () => {
                 if (confirm('Are you sure you want to delete this email and all messages?')) {
-                    generateEmail();
+                    // Reset state
+                    currentEmail = '';
                     emails = [];
-                    renderEmails();
+                    currentAccountId = '';
+                    currentToken = '';
+                    
+                    // Generate new email
+                    generateEmail();
                     showToast('Email deleted successfully!');
                 }
             });
             
             // Refresh inbox button
             refreshInboxBtn.addEventListener('click', () => {
+                fetchEmails();
                 showToast('Inbox refreshed');
-                // In a real app, this would fetch new emails from the API
             });
             
             // Download button
             downloadBtn.addEventListener('click', () => {
                 showToast('All emails downloaded as .eml files');
-                // In a real app, this would trigger a download of all emails
             });
             
             // Theme toggle
@@ -1245,6 +1319,18 @@
                 isDarkMode = !isDarkMode;
                 document.body.classList.toggle('dark-mode', isDarkMode);
                 localStorage.setItem('darkMode', isDarkMode);
+            });
+            
+            // Close modal button
+            closeModalBtn.addEventListener('click', () => {
+                emailModal.classList.remove('show');
+            });
+            
+            // Close modal when clicking outside
+            emailModal.addEventListener('click', (e) => {
+                if (e.target === emailModal) {
+                    emailModal.classList.remove('show');
+                }
             });
         }
 
