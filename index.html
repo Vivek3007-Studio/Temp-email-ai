@@ -711,6 +711,123 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Blog Section */
+        .blog-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        body.dark-mode .blog-section {
+            background-color: #1e293b;
+        }
+
+        .blog-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        body.dark-mode .blog-header {
+            border-bottom-color: #334155;
+        }
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 25px;
+        }
+
+        .blog-card {
+            background: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-mode .blog-card {
+            background: #334155;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .blog-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        body.dark-mode .blog-meta {
+            color: #94a3b8;
+        }
+
+        .blog-title {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        body.dark-mode .blog-title {
+            color: white;
+        }
+
+        .blog-excerpt {
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .blog-excerpt {
+            color: #94a3b8;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            gap: 5px;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .blog-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .blog-category {
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .content-layout {
@@ -752,6 +869,10 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+
+            .blog-posts {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -781,6 +902,7 @@
                 <div class="nav-links">
                     <a href="#" class="active">Home</a>
                     <a href="#">Features</a>
+                    <a href="#">Blog</a>
                     <a href="#">FAQ</a>
                     <a href="#">Privacy</a>
                     <a href="#">Contact</a>
@@ -842,31 +964,92 @@
         <!-- Main Content Layout -->
         <div class="content-layout">
             <!-- Left Column - Inbox -->
-            <div class="inbox">
-                <div class="inbox-header">
-                    <h2>Inbox <span id="unreadCount" class="unread-count">(0)</span></h2>
-                    <button class="refresh-btn" id="refreshInboxBtn">
-                        <i class="fas fa-sync-alt"></i> Refresh
-                    </button>
-                </div>
-                
-                <div class="email-list" id="emailList">
-                    <div class="empty-inbox" style="padding: 40px 20px; text-align: center; color: var(--gray);">
-                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                        <h3>Your inbox is empty</h3>
-                        <p>Messages sent to your temporary email will appear here</p>
+            <div>
+                <div class="inbox">
+                    <div class="inbox-header">
+                        <h2>Inbox <span id="unreadCount" class="unread-count">(0)</span></h2>
+                        <button class="refresh-btn" id="refreshInboxBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    
+                    <div class="email-list" id="emailList">
+                        <div class="empty-inbox" style="padding: 40px 20px; text-align: center; color: var(--gray);">
+                            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                            <h3>Your inbox is empty</h3>
+                            <p>Messages sent to your temporary email will appear here</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Ad between emails -->
+                    <div style="padding: 15px; text-align: center;">
+                        <ins class="adsbygoogle"
+                             style="display:block; text-align:center;"
+                             data-ad-layout="in-article"
+                             data-ad-format="fluid"
+                             data-ad-client="ca-pub-2572999402945817"
+                             data-ad-slot="3853355144"></ins>
                     </div>
                 </div>
                 
-                <!-- Ad between emails -->
-                <div style="padding: 15px; text-align: center;">
-                    <ins class="adsbygoogle"
-                         style="display:block; text-align:center;"
-                         data-ad-layout="in-article"
-                         data-ad-format="fluid"
-                         data-ad-client="ca-pub-2572999402945817"
-                         data-ad-slot="3853355144"></ins>
-                </div>
+                <!-- Blog Section -->
+                <section class="blog-section">
+                    <div class="blog-header">
+                        <h2><i class="fas fa-blog"></i> Latest Blog Posts</h2>
+                    </div>
+                    <div class="blog-posts">
+                        <div class="blog-card">
+                            <div class="blog-image" style="background-image: linear-gradient(to right, #4f46e5, #7c3aed);"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span>June 15, 2023</span>
+                                    <span><i class="fas fa-clock"></i> 5 min read</span>
+                                </div>
+                                <h3 class="blog-title">Top 10 Privacy Tips for Online Safety</h3>
+                                <p class="blog-excerpt">Learn how to protect your personal information online with these essential privacy practices...</p>
+                                <div class="blog-categories">
+                                    <span class="blog-category">Privacy</span>
+                                    <span class="blog-category">Security</span>
+                                </div>
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-image" style="background-image: linear-gradient(to right, #10b981, #059669);"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span>June 3, 2023</span>
+                                    <span><i class="fas fa-clock"></i> 4 min read</span>
+                                </div>
+                                <h3 class="blog-title">Why Disposable Emails Are Essential</h3>
+                                <p class="blog-excerpt">Discover how temporary emails can protect you from spam and phishing attempts...</p>
+                                <div class="blog-categories">
+                                    <span class="blog-category">Email</span>
+                                    <span class="blog-category">Security</span>
+                                </div>
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-image" style="background-image: linear-gradient(to right, #f59e0b, #d97706);"></div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <span>May 22, 2023</span>
+                                    <span><i class="fas fa-clock"></i> 6 min read</span>
+                                </div>
+                                <h3 class="blog-title">Understanding Email Security Protocols</h3>
+                                <p class="blog-excerpt">A deep dive into the security measures that protect your email communications...</p>
+                                <div class="blog-categories">
+                                    <span class="blog-category">Security</span>
+                                    <span class="blog-category">Technology</span>
+                                </div>
+                                <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
             
             <!-- Right Column - Sidebar -->
